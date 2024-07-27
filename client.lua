@@ -142,7 +142,7 @@ end)
 
 
 
---[[ Legacy Data Cache System ]]
+--[[ LEGACY CACHE SYSTEM ]]
 -- The Legacy Data Cache System provides a way to cache and manage data related to the player's vehicle and ped (player character) in a game.
 -- This system updates data periodically based on whether the player is in a vehicle or on foot.
 
@@ -153,31 +153,6 @@ end)
 -- Parameters
 --- @param cacheType string - The type of cache to retrieve. Options are 'vehicle' and 'ped'.
 --- @return table|nil - Returns a table containing cached data for the specified type, or nil if no data is available.
-
---[[ Example Usage for Vehicle Cache ]]
---- @return table|nil
-
-RegisterCommand('cache', function()
-    local vehicleCache = Legacy.CACHE:GetCache('vehicle')
-    if vehicleCache then
-        print(json.encode(vehicleCache, { indent = true }))
-    else
-        print("Not in vehicle or no vehicle data available.")
-    end
-end)
-
-
---[[ Example Usage for Ped Cache ]]
---- @return table|nil
-
-RegisterCommand('pedcache', function()
-    local pedCache = Legacy.CACHE:GetCache('ped')
-    if pedCache then
-        print(json.encode(pedCache, { indent = true }))
-    else
-        print("No ped data available.")
-    end
-end)
 
 --[[ Vehicle Cache Fields ]]
 -- When the player is in a vehicle, the system caches data about the vehicle. The following fields are available:
@@ -200,3 +175,88 @@ end)
 -- armor: The current armor of the ped.
 -- weapon: boolean indicating if player is armed or not.
 -- source: The server ID of the player associated with the ped.
+
+
+--[[ Example Usage for Vehicle Cache ]]
+--- @return table|nil
+
+RegisterCommand('cache', function()
+    local vehicleCache = Legacy.CACHE:GetCache('vehicle')
+    if vehicleCache then
+        print(json.encode(vehicleCache, { indent = true }))
+    else
+        print("Not in vehicle or no vehicle data available.")
+    end
+end)
+
+--[[ Example Usage for Ped Cache ]]
+--- @return table|nil
+
+RegisterCommand('pedcache', function()
+    local pedCache = Legacy.CACHE:GetCache('ped')
+    if pedCache then
+        print(json.encode(pedCache, { indent = true }))
+    else
+        print("No ped data available.")
+    end
+end)
+
+
+--[[ PLAYER DATA LOCATED IN STATE BAG ]]
+
+-- To retrieve player data on the client side, you can use the state bag mechanism provided by the LocalPlayer object. This allows for efficient and organized access to player data.
+-- LocalPlayer.state.GetPlayerObject
+-- The LocalPlayer.state.GetPlayerObject function retrieves player data and returns it as a table.
+-- This method provides a straightforward way to access the player's data directly.
+
+-- Parameters
+-- No parameters are needed for this function.
+
+-- Returns
+--- @return table|nil - Returns a table containing the player's data.
+
+-- Example Usage:
+
+RegisterCommand('bag', function()
+    local PlayerData = LocalPlayer.state.GetPlayerObject
+    print(json.encode(PlayerData, { indent = true }))
+end)
+
+
+--[[ COMMON REPLACE (STATUS SYSTEM) ]]
+
+-- LEGACYCORE:GetPlayerHunger
+-- Returns the current value of the player's hunger.
+
+-- Example:
+local Hunger = exports.LEGACYCORE:GetPlayerHunger()
+print('My Hunger:', Hunger)
+
+-- LEGACYCORE:GetPlayerThirst
+-- Returns the current value of the player's thirst.
+
+-- Example:
+local Thirst = exports.LEGACYCORE:GetPlayerThirst()
+print('My Thirst:', Thirst)
+
+-- LEGACYCORE:SetPlayerHunger
+-- Description:
+-- Sets the player's hunger level to the specified value.
+
+-- Parameters:
+--- @param number number - The desired hunger level, expressed as a percentage.
+
+-- Example:
+-- Set the player's hunger to 50%
+exports.LEGACYCORE:SetPlayerHunger(50)
+
+-- LEGACYCORE:SetPlayerThirst
+-- Description:
+-- Sets the player's thirst level to the specified value.
+
+-- Parameters:
+--- @param number number - The desired thirst level, expressed as a percentage.
+
+-- Example:
+-- Set the player's thirst to 75%
+exports.LEGACYCORE:SetPlayerThirst(75)
