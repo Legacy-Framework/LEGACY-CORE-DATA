@@ -260,3 +260,39 @@ exports.LEGACYCORE:SetPlayerHunger(50)
 -- Example:
 -- Set the player's thirst to 75%
 exports.LEGACYCORE:SetPlayerThirst(75)
+
+
+
+--[[ MULTICHARACTER SYSTEM ]]
+-- This document details the management of multiple characters within the LGF Multicharacter system.
+-- The system allows players to create and manage multiple characters using a single license, each identified by a unique charIdentifier representing a specific slot.
+
+-- Example Usage:
+-- To utilize a character's slot in another script, integrate the functions provided by LGF Multicharacter.
+
+--[[ Retrieve Character Slot ]]
+
+-- Parameters:
+--- @return number - The Slot associated At the specified character
+
+local PlayerSlot = exports.LGF_AdvancedMultichar:GetCharacterSlot()
+print(PlayerSlot) 
+
+--[[ Skin Customization Command ]]
+-- Example of starting player customization and updating character appearance at the specified slot:
+RegisterCommand('skin', function()
+    -- Retrieve the character slot using the LGF_AdvancedMultichar resource
+    local PlayerSlot = exports.LGF_AdvancedMultichar:GetCharacterSlot()
+
+    -- Start player customization using fivem-appearance
+    exports['fivem-appearance']:startPlayerCustomization(function(appearance)
+        if appearance then
+            -- Trigger a server event to update the character's appearance at the specified slot
+            TriggerServerEvent('EventName', appearance, PlayerSlot)
+        end
+    end)
+end)
+
+-- Conclusion:
+-- The LGF Multicharacter system efficiently manages character slots, enabling players to create and manage multiple characters.
+-- By using the charIdentifier, each character is distinctly identified in the database, ensuring a seamless and organized gaming experience.
