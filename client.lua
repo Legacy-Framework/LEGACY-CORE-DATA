@@ -14,7 +14,8 @@ end)
 -- This event is triggered when the player is fully loaded. It can be used to perform initial actions when the player enters the game and their character is ready.
 --- @param slot number - The slot used for the player's character.
 --- @param playerdata table - The player's data.
-AddEventHandler('LegacyCore:PlayerLoaded', function(slot, playerdata)
+--- @param newPlayer boolean - If character is new.
+AddEventHandler('LegacyCore:PlayerLoaded', function(slot, playerdata,newPlayer)
     print(string.format('Player Loaded With Slot Used %s', slot))
     print('Player Data:', json.encode(playerdata, { indent = true, sort_keys = true }))
 end)
