@@ -262,38 +262,22 @@ exports.LEGACYCORE:SetPlayerHunger(50)
 -- Set the player's thirst to 75%
 exports.LEGACYCORE:SetPlayerThirst(75)
 
+--[[ GETPLAYERCHARID FUNCTION ]]
 
+-- Retrieves the current character ID slot used by the player.
+-- This function is particularly useful for identifying which character slot the player is currently using.
+-- In a game where players can have multiple characters tied to a single account, each character is assigned a unique slot.
+-- This function returns the identifier for the character slot that is active when the player spawns into the game.
 
---[[ MULTICHARACTER SYSTEM ]]
--- This document details the management of multiple characters within the LGF Multicharacter system.
--- The system allows players to create and manage multiple characters using a single license, each identified by a unique charIdentifier representing a specific slot.
+--- @return number - The player's character ID slot, which is an integer representing the slot assigned to the active character.
 
--- Example Usage:
--- To utilize a character's slot in another script, integrate the functions provided by LGF Multicharacter.
+-- Example:
 
---[[ Retrieve Character Slot ]]
+local charId = Legacy.DATA:GetPlayerCharId()
+print(string.format("The player is using character slot ID: %d", charId))
 
--- Parameters:
---- @return number - The Slot associated At the specified character
+-- Notes:
+-- Ensure that the player has fully spawned before calling this function, as the character ID slot is only assigned at that point.
+-- This function does not take any parameters.
+-- The return value is always a number. If, for any reason, the slot ID cannot be retrieved, consider adding error handling to manage such cases.
 
-local PlayerSlot = exports.LGF_AdvancedMultichar:GetCharacterSlot()
-print(PlayerSlot) 
-
---[[ Skin Customization Command ]]
--- Example of starting player customization and updating character appearance at the specified slot:
-RegisterCommand('skin', function()
-    -- Retrieve the character slot using the LGF_AdvancedMultichar resource
-    local PlayerSlot = exports.LGF_AdvancedMultichar:GetCharacterSlot()
-
-    -- Start player customization using fivem-appearance
-    exports['fivem-appearance']:startPlayerCustomization(function(appearance)
-        if appearance then
-            -- Trigger a server event to update the character's appearance at the specified slot
-            TriggerServerEvent('EventName', appearance, PlayerSlot)
-        end
-    end)
-end)
-
--- Conclusion:
--- The LGF Multicharacter system efficiently manages character slots, enabling players to create and manage multiple characters.
--- By using the charIdentifier, each character is distinctly identified in the database, ensuring a seamless and organized gaming experience.
