@@ -37,6 +37,48 @@ RegisterCommand('dataslot', function(src)
     end
 end)
 
+--[[ PLAYERLOGOUT EVENT ]]
+
+-- Triggered when the player logs out. This server-side event is useful for synchronizing the player's disconnection with the server 
+-- and handling necessary cleanup. You can use this event to save player data, clean up resources, or perform other actions needed 
+-- when a player disconnects.
+
+-- Syntax:
+--- TriggerServerEvent('LegacyCore:PlayerLogout')
+
+-- Example Usage:
+-- The following example demonstrates how to handle player logout on the server side:
+RegisterNetEvent('LegacyCore:PlayerLogout')
+AddEventHandler('LegacyCore:PlayerLogout', function()
+    local source = source
+    print(string.format('The player with ID %d has logged out.', source))
+    -- Add code here to handle player logout on the server side, such as saving player data or cleaning up resources.
+end)
+
+--[[ PLAYERLOADED EVENT ]]
+
+-- Triggered when the player is fully loaded. This server-side event is useful for synchronizing the player's entry with the server 
+-- and performing any necessary server-side initializations, such as setting up player data or spawning entities.
+
+-- Syntax:
+--- TriggerServerEvent('LegacyCore:PlayerLoaded', slot, data, newPlayer)
+
+-- Parameters:
+--- @param slot number - The character slot associated with the loaded player.
+--- @param data table - A table containing the player's data, including stats, inventory, and other relevant information.
+--- @param newPlayer boolean - Indicates whether the player is new or returning.
+
+-- Example Usage:
+-- The following example demonstrates how to handle player character initialization on the server side:
+RegisterNetEvent('LegacyCore:PlayerLoaded')
+AddEventHandler('LegacyCore:PlayerLoaded', function(slot, data, newPlayer)
+    local source = source
+    print(string.format('Player with ID %d and SLOT %d loaded in server', source, slot))
+    print(string.format('Player Data for source %d: %s', source, json.encode(data, { indent = true })))
+    -- Add code here to handle player character initialization on the server side, such as setting up player data or spawning entities.
+end)
+
+
 --[[ GETPLAYERCHARSLOT FUNCTION ]]
 
 -- Retrieves the character slot identifier based on the player's source identifier.
