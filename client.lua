@@ -269,7 +269,7 @@ exports.LEGACYCORE:SetPlayerThirst(75)
 -- In a game where players can have multiple characters tied to a single account, each character is assigned a unique slot.
 -- This function returns the identifier for the character slot that is active when the player spawns into the game.
 
---- @return number - The player's character ID slot, which is an integer representing the slot assigned to the active character.
+--- @return string, number | nil - The player's character ID slot, which is an integer representing the slot assigned to the active character.
 
 -- Example:
 
