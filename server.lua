@@ -184,7 +184,7 @@ end
 --[[ GETINVENTORYDATA FUNCTION ]]
 
 -- Retrieves the inventory data for the player based on their source identifier and character slot.
--- This function provides access to the player's inventory items.
+-- This function provides access to the player's inventory items but is based on ox_inventory so the best approach is to get it with the functions of it.
 
 -- Parameters:
 --- @param src string - The player's source identifier.
